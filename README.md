@@ -1,129 +1,169 @@
-# 🧠 AI Mood Analyzer
+# AI Mood Analyzer
 
-An end-to-end AI Mood Analyzer that detects emotions from text using a trained machine learning model.
-The project is designed with production-grade ML architecture, separating training, inference, and user interface layers.
+An end-to-end AI-powered mood analyzer that detects emotions from text using machine learning. Designed with production-grade architecture, the project cleanly separates training, inference, and user interface layers for scalability and maintainability.
 
+---
 
-🛠️ Tech Stack
+## Technology Stack
 
-- Python 3.11
-- Scikit-learn
-- FastAPI
-- Pydantic
-- Streamlit
-- MLflow
-- Docker
+- **Python 3.11** - Core language
+- **Scikit-learn** - Machine learning framework
+- **FastAPI** - Inference API service
+- **Pydantic** - Data validation
+- **Streamlit** - Web-based user interface
+- **MLflow** - Experiment tracking
+- **Docker** - Container orchestration
 
+---
 
-🚀 Project Highlights
+## Key Features
 
-🔍 Text-based emotion detection
-🧠 ML model trained using Scikit-learn
-⚡ FastAPI-based inference service
-🎨 Streamlit frontend for user interaction
-📦 Docker-ready architecture
+- **Text-based Emotion Detection** - Accurately classifies user input into emotion categories
+- **Scikit-learn ML Model** - Logistic Regression (One-vs-Rest) trained offline
+- **FastAPI Inference Service** - High-performance REST API for real-time predictions
+- **Streamlit Frontend** - User-friendly interface for emotion analysis
+- **Production-Ready Architecture** - Modular design with separation of concerns
+- **Docker Support** - Containerized deployment for training and inference
 
+---
 
-🧠 Model Details
+## Model Details
 
-Algorithm: Logistic Regression (One-vs-Rest)
-Vectorization: TF-IDF
-Frameworks:
-Scikit-learn
-MLflow (experiment tracking ready)
+**Algorithm**: Logistic Regression with One-vs-Rest strategy  
+**Vectorization Method**: TF-IDF  
+**Framework**: Scikit-learn with MLflow integration
 
-The model is trained offline and saved as artifacts, which are later loaded by the inference API.
+The model is trained offline and persisted as artifacts, which are loaded at runtime by the inference API. This design ensures fast inference without requiring model retraining during prediction.
 
-🔌 Inference API (FastAPI)
+---
 
-Endpoint: POST /predict
-Request Body:
+## API Specification
+
+### Inference Endpoint
+
+**Method**: `POST /predict`
+
+**Request Body**:
+```json
 {
   "texts": ["I feel excited about my new job!"]
 }
-Response:
+```
+
+**Response**:
+```json
 {
   "emotion": "happy"
 }
+```
 
+**Features**:
+- Input validation using Pydantic
+- Batch prediction support for multiple texts
+- Comprehensive error handling
+- Health-check endpoint availability
 
-Features
+---
 
-Input validation using Pydantic
-Batch prediction support
-Clean error handling
-Health-check ready architecture
+## System Architecture
 
-
-🎨 Frontend (Streamlit)
-
-Simple and intuitive UI
-Sends user input to FastAPI
-Displays detected emotion
-Handles API failures gracefully
-The Streamlit app does NOT load the model directly — it communicates only via the API
-
-
-🧱 System Architecture
-
+```
 User (Streamlit UI)
-        ↓
+        |
+        v
 FastAPI Inference Service
-        ↓
+        |
+        v
 Saved ML Artifacts (model, vectorizer)
-        ↑
+        ^
+        |
 Offline Training Pipeline
+```
 
+The Streamlit application communicates exclusively through the API, ensuring a clean separation between the frontend and model layers.
 
-------------------------------------------------------------------------------------------
-⚙️ How to Run the Project Locally
+---
 
-1. Create & activate virtual environment:
-     python -m venv venv
-     venv\Scripts\activate   # Windows
+## Getting Started
 
-2. Install backend dependencies:
-     pip install -r requirements.txt
-   
-3. Run Inference API:
-     uvicorn inference.app:app --host 0.0.0.0 --port 8000 --reload
+### Prerequisites
+- Python 3.11 or higher
+- pip package manager
+- Virtual environment (recommended)
 
-4. Check API on the browser:
-      http://localhost:8000/docs
+### Installation & Setup
 
-5. Run Streamlit App:
-     cd streamlit_app
-     pip install -r requirements.txt
-     streamlit run app.py
+1. **Create and activate a virtual environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-6. Open in browser:
-     http://localhost:8501
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
----------------------------------------------------------------------------------------
+3. **Start the FastAPI inference service**:
+   ```bash
+   uvicorn inference.app:app --host 0.0.0.0 --port 8000 --reload
+   ```
 
-🐳 Docker Support
+4. **Access the API documentation**:
+   Open your browser and navigate to `http://localhost:8000/docs`
 
-Dockerfile.train → Training pipeline
-Dockerfile.infer → Inference service
+5. **Run the Streamlit application**:
+   ```bash
+   cd streamlit_app
+   pip install -r requirements.txt
+   streamlit run app.py
+   ```
 
-The project is container-ready and can be extended with Docker Compose.
+6. **Access the web interface**:
+   Open your browser and navigate to `http://localhost:8501`
 
+---
 
-📌 Configuration Management
+## Docker Deployment
 
-config.json stores model-related metadata
-Keeps parameters version-controlled
-Helps ensure reproducibility and clarity
+The project includes two Dockerfiles for containerized deployment:
 
+- **Dockerfile.train** - Training pipeline container
+- **Dockerfile.infer** - Inference service container
 
-🎯 Why This Project Matters
+Docker Compose can be used to orchestrate multiple services for production environments.
 
-This project demonstrates:
+---
 
-✅ End-to-end ML system design
-✅ Real-world API + UI integration
-✅ Clean code organization
-✅ Debugging & production thinking
-✅ MLOps fundamentals (without overengineering)
+## Configuration Management
 
-Author: Shreyash Singhai
+Configuration parameters are stored in `config.json`, including:
+- Model metadata
+- Hyperparameters
+- Feature specifications
+
+This approach ensures version control, reproducibility, and easy parameter management.
+
+---
+
+## Project Rationale
+
+This project demonstrates professional machine learning practices:
+
+- End-to-end ML system design with clear separation of concerns
+- Production-grade API and UI integration
+- Clean, maintainable code organization
+- Real-world deployment considerations
+- MLOps fundamentals without unnecessary complexity
+
+---
+
+## Author
+
+**Shreyash Singhai**
+
+---
+
+## License
+
+[Specify your license here]
